@@ -1,4 +1,4 @@
-package Global.Points.FeiraOnline.rest;
+package Fair.Fruit.FeiraOnline.rest;
 
 import lombok.Data;
 import lombok.Getter;

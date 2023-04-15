@@ -1,7 +1,7 @@
-package Global.Points.FeiraOnline.repository;
+package Fair.Fruit.FeiraOnline.repository;
 
 
-import Global.Points.FeiraOnline.entities.Client;
+import Fair.Fruit.FeiraOnline.entities.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

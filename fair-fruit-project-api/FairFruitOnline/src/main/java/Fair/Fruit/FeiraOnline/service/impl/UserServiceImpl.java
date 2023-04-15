@@ -1,7 +1,7 @@
-package Global.Points.FeiraOnline.service.impl;
+package Fair.Fruit.FeiraOnline.service.impl;
 
-import Global.Points.FeiraOnline.entities.UserGP;
-import Global.Points.FeiraOnline.repository.UserRepository;
+import Fair.Fruit.FeiraOnline.entities.UserGP;
+import Fair.Fruit.FeiraOnline.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

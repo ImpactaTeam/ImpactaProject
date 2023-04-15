@@ -1,6 +1,6 @@
-package Global.Points.FeiraOnline.validation;
+package Fair.Fruit.FeiraOnline.validation;
 
-import Global.Points.FeiraOnline.validation.constranitvalidation.NotEmptyListValidator;
+import Fair.Fruit.FeiraOnline.validation.constranitvalidation.NotEmptyListValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

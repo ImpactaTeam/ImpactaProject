@@ -1,4 +1,4 @@
-package Global.Points.FeiraOnline.entities;
+package Fair.Fruit.FeiraOnline.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

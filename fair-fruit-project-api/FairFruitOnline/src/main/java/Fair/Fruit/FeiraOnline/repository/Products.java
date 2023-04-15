@@ -1,6 +1,6 @@
-package Global.Points.FeiraOnline.repository;
+package Fair.Fruit.FeiraOnline.repository;
 
-import Global.Points.FeiraOnline.entities.Product;
+import Fair.Fruit.FeiraOnline.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface Products extends JpaRepository<Product, Integer> {

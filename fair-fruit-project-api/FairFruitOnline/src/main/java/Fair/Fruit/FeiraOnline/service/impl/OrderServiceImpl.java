@@ -1,19 +1,19 @@
-package Global.Points.FeiraOnline.service.impl;
+package Fair.Fruit.FeiraOnline.service.impl;
 
-import Global.Points.FeiraOnline.dto.OrderDTO;
-import Global.Points.FeiraOnline.dto.OrderItemDTO;
-import Global.Points.FeiraOnline.entities.Client;
-import Global.Points.FeiraOnline.entities.Order;
-import Global.Points.FeiraOnline.entities.OrderItem;
-import Global.Points.FeiraOnline.entities.Product;
-import Global.Points.FeiraOnline.entities.enums.OrderStatus;
-import Global.Points.FeiraOnline.exception.BusinessRuleException;
-import Global.Points.FeiraOnline.exception.OrderNotFoundException;
-import Global.Points.FeiraOnline.repository.Clients;
-import Global.Points.FeiraOnline.repository.OrderItems;
-import Global.Points.FeiraOnline.repository.Orders;
-import Global.Points.FeiraOnline.repository.Products;
-import Global.Points.FeiraOnline.service.OrderService;
+import Fair.Fruit.FeiraOnline.dto.OrderDTO;
+import Fair.Fruit.FeiraOnline.dto.OrderItemDTO;
+import Fair.Fruit.FeiraOnline.entities.Client;
+import Fair.Fruit.FeiraOnline.entities.Order;
+import Fair.Fruit.FeiraOnline.entities.OrderItem;
+import Fair.Fruit.FeiraOnline.entities.Product;
+import Fair.Fruit.FeiraOnline.entities.enums.OrderStatus;
+import Fair.Fruit.FeiraOnline.exception.BusinessRuleException;
+import Fair.Fruit.FeiraOnline.exception.OrderNotFoundException;
+import Fair.Fruit.FeiraOnline.repository.Clients;
+import Fair.Fruit.FeiraOnline.repository.OrderItems;
+import Fair.Fruit.FeiraOnline.repository.Orders;
+import Fair.Fruit.FeiraOnline.repository.Products;
+import Fair.Fruit.FeiraOnline.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

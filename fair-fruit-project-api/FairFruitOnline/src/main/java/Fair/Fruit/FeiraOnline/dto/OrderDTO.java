@@ -1,6 +1,6 @@
-package Global.Points.FeiraOnline.dto;
+package Fair.Fruit.FeiraOnline.dto;
 
-import Global.Points.FeiraOnline.validation.NotEmptyList;
+import Fair.Fruit.FeiraOnline.validation.NotEmptyList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

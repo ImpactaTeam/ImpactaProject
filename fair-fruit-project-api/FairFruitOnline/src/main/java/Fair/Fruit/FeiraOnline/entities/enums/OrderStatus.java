@@ -1,4 +1,4 @@
-package Global.Points.FeiraOnline.entities.enums;
+package Fair.Fruit.FeiraOnline.entities.enums;
 
 public enum OrderStatus {
     Realized,

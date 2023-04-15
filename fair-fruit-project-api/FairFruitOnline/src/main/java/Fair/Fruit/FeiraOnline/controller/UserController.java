@@ -1,7 +1,7 @@
-package Global.Points.FeiraOnline.controller;
+package Fair.Fruit.FeiraOnline.controller;
 
-import Global.Points.FeiraOnline.entities.UserGP;
-import Global.Points.FeiraOnline.service.impl.UserServiceImpl;
+import Fair.Fruit.FeiraOnline.entities.UserGP;
+import Fair.Fruit.FeiraOnline.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;

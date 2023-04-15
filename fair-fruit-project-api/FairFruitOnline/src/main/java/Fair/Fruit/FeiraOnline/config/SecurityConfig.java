@@ -1,6 +1,6 @@
-package Global.Points.FeiraOnline.config;
+package Fair.Fruit.FeiraOnline.config;
 
-import Global.Points.FeiraOnline.service.impl.UserServiceImpl;
+import Fair.Fruit.FeiraOnline.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -35,16 +35,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/api/clients/**")
-                        .hasAnyRole("USER", "ADMIN")
+                        .permitAll()
                     .antMatchers("/api/orders/**")
-                        .hasAnyRole("USER", "ADMIN")
+                        .permitAll()
                     .antMatchers("/api/products/**")
-                        .hasRole("ADMIN")
+                        .permitAll()
                     .antMatchers(HttpMethod.POST, "/api/users/**")
                         .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                    .httpBasic();
+                    .authorizeRequests();
         ;
     }
 

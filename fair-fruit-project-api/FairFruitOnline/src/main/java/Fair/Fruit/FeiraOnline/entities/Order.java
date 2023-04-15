@@ -1,6 +1,6 @@
-package Global.Points.FeiraOnline.entities;
+package Fair.Fruit.FeiraOnline.entities;
 
-import Global.Points.FeiraOnline.entities.enums.OrderStatus;
+import Fair.Fruit.FeiraOnline.entities.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

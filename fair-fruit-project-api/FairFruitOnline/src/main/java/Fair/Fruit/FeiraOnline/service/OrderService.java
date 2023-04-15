@@ -1,8 +1,8 @@
-package Global.Points.FeiraOnline.service;
+package Fair.Fruit.FeiraOnline.service;
 
-import Global.Points.FeiraOnline.dto.OrderDTO;
-import Global.Points.FeiraOnline.entities.Order;
-import Global.Points.FeiraOnline.entities.enums.OrderStatus;
+import Fair.Fruit.FeiraOnline.dto.OrderDTO;
+import Fair.Fruit.FeiraOnline.entities.Order;
+import Fair.Fruit.FeiraOnline.entities.enums.OrderStatus;
 
 import java.util.Optional;
 

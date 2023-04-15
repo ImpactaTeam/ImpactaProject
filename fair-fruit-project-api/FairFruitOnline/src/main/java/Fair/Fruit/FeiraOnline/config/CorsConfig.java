@@ -1,4 +1,4 @@
-package Global.Points.FeiraOnline.config;
+package Fair.Fruit.FeiraOnline.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

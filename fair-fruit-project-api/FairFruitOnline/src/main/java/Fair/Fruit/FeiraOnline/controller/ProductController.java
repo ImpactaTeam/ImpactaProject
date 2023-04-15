@@ -1,7 +1,7 @@
-package Global.Points.FeiraOnline.controller;
+package Fair.Fruit.FeiraOnline.controller;
 
-import Global.Points.FeiraOnline.entities.Product;
-import Global.Points.FeiraOnline.repository.Products;
+import Fair.Fruit.FeiraOnline.entities.Product;
+import Fair.Fruit.FeiraOnline.repository.Products;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;

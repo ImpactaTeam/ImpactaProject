@@ -1,4 +1,4 @@
-package Global.Points.FeiraOnline.entities;
+package Fair.Fruit.FeiraOnline.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

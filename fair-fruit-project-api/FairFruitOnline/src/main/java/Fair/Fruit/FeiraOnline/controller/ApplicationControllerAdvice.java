@@ -1,9 +1,9 @@
-package Global.Points.FeiraOnline.controller;
+package Fair.Fruit.FeiraOnline.controller;
 
 
-import Global.Points.FeiraOnline.exception.BusinessRuleException;
-import Global.Points.FeiraOnline.exception.OrderNotFoundException;
-import Global.Points.FeiraOnline.rest.ApiErrors;
+import Fair.Fruit.FeiraOnline.exception.BusinessRuleException;
+import Fair.Fruit.FeiraOnline.exception.OrderNotFoundException;
+import Fair.Fruit.FeiraOnline.rest.ApiErrors;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

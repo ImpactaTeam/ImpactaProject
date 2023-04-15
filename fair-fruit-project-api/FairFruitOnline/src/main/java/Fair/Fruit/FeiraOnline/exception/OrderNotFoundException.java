@@ -1,4 +1,4 @@
-package Global.Points.FeiraOnline.exception;
+package Fair.Fruit.FeiraOnline.exception;
 
 public class OrderNotFoundException extends RuntimeException{
     public OrderNotFoundException() {

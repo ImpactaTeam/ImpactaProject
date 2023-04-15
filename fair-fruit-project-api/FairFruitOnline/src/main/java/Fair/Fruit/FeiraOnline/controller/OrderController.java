@@ -1,13 +1,13 @@
-package Global.Points.FeiraOnline.controller;
+package Fair.Fruit.FeiraOnline.controller;
 
-import Global.Points.FeiraOnline.dto.OderDetailsItemDTO;
-import Global.Points.FeiraOnline.dto.OrderDTO;
-import Global.Points.FeiraOnline.dto.OrderDetailsDTO;
-import Global.Points.FeiraOnline.dto.OrderStatusUpdateDTO;
-import Global.Points.FeiraOnline.entities.Order;
-import Global.Points.FeiraOnline.entities.OrderItem;
-import Global.Points.FeiraOnline.entities.enums.OrderStatus;
-import Global.Points.FeiraOnline.service.OrderService;
+import Fair.Fruit.FeiraOnline.dto.OderDetailsItemDTO;
+import Fair.Fruit.FeiraOnline.dto.OrderDTO;
+import Fair.Fruit.FeiraOnline.dto.OrderDetailsDTO;
+import Fair.Fruit.FeiraOnline.dto.OrderStatusUpdateDTO;
+import Fair.Fruit.FeiraOnline.entities.Order;
+import Fair.Fruit.FeiraOnline.entities.OrderItem;
+import Fair.Fruit.FeiraOnline.entities.enums.OrderStatus;
+import Fair.Fruit.FeiraOnline.service.OrderService;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
