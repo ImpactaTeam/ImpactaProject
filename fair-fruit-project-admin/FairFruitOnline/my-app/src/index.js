@@ -4,6 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './router';
 import './index.css';
+import { Provider } from 'react-redux';
+import { store } from './store';
+
 
 const theme = createTheme({
   palette: {
@@ -16,13 +19,16 @@ const theme = createTheme({
   }
 })
 
+
 ReactDOM.render(
   <React.StrictMode>
-    <StylesProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <Routes />
-      </ThemeProvider>
-    </StylesProvider>
+    <Provider store={store}>
+      <StylesProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <Routes />
+        </ThemeProvider>
+      </StylesProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

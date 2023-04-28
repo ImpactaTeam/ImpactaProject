@@ -22,28 +22,20 @@ export const Container = styled.main`
     }
 `;
 
-export const List = styled.section`
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 5px 0;
-    > h2 {
-        color: ${titleGray};
-        font-size: 32px;
-        margin-top: 20px;
-    }
-`;
-
 export const CustomCard = styled(Card)`
   align-items: center;
   display: flex;
-  justify-content: space-between;
-  padding: 20px;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  padding: 30px;
   width: 100%;
+  position: relative; /* make the container a positioned element */
   div {
-    align-items: center;
+    /* align-items: center; */
     display: flex;
     gap: 20px;
+    margin-left: 3.5%;
+    flex-wrap: wrap; /* allow the input fields to wrap to the next line */
     p {
       font-size: 22px;
       font-weight: bold;
@@ -52,10 +44,27 @@ export const CustomCard = styled(Card)`
     span {
       font-size: 16px;
     }
-  }
+    /* create a new div for the image */
+    .image-container {
+        margin-top: -135px;
+        margin-left: 70%;
+        bottom: 0;
+        transform: translateX(-50%);
+    }
+    img {
+        justify-content: space-between;
+        margin-top: 10px;
+        width: 200px;
+        height: auto;
+    }
+    Button {
+        justify-content: flex-end;
+    }
+}
 `;
 
-export const Back = styled(IconButton).attrs({
+
+export const Voltar = styled(IconButton).attrs({
     children: <ArrowBackIcon />,
 })`
     left: 20px;
@@ -80,6 +89,22 @@ export const TotalContainer = styled.section`
     }
 `;
 
-export const PaymentContainer = styled(FormControl)`
+export const PagamentoContainer = styled(FormControl)`
     width: 100%;
+`;
+
+export const InputContainer = styled(FormControl)`
+    margin-bottom: 30px;
+`;
+
+export const Lista = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
+    > h2 {
+        color: ${titleGray};
+        font-size: 32px;
+        margin-top: 20px;
+    }
 `;

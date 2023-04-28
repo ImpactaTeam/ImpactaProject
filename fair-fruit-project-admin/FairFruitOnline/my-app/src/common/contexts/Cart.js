@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { usePayment } from './Payment';
-import { UserContext } from './Client';
+import { LoginContext } from './Login';
 
 const CartContext = createContext();
 CartContext.displayName = 'Cart';
@@ -35,18 +35,17 @@ export function useCartContext() {
         setTotalValue,
     } = useContext(CartContext);
 
-    const { balance, setBalance } = useContext(UserContext);
+    const { balance, setBalance } = useContext(LoginContext);
 
     const { paymentType } = usePayment();
 
-    const changeQuantity = (id, quantity) =>
-        cart.map((item) => {
-            if (item.id === id) item.quantity += quantity;
-            return item;
-        });
+    const changeQuantity = (id, quantity) => cart.map(item => {
+        if (item.id === id) item.quantity += quantity;
+        return item;
+    });
 
     function addProduct(newProduct) {
-        const hasProduct = cart.some((item) => item.id === newProduct.id);
+        const hasProduct = cart.some(item => item.id === newProduct.id);
         let newCart = [...cart];
         if (!hasProduct) {
             newProduct.quantity = 1;
