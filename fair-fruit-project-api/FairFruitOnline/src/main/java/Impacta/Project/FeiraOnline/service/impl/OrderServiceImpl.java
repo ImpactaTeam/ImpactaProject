@@ -1,0 +1,99 @@
+package Impacta.Project.FeiraOnline.service.impl;
+
+import Impacta.Project.FeiraOnline.dto.OrderDTO;
+import Impacta.Project.FeiraOnline.dto.OrderItemDTO;
+import Impacta.Project.FeiraOnline.entities.enums.OrderStatus;
+import Impacta.Project.FeiraOnline.exception.BusinessRuleException;
+import Impacta.Project.FeiraOnline.exception.OrderNotFoundException;
+import Impacta.Project.FeiraOnline.service.OrderService;
+import Impacta.Project.FeiraOnline.entities.Order;
+import Impacta.Project.FeiraOnline.entities.OrderItem;
+import Impacta.Project.FeiraOnline.entities.Product;
+import Impacta.Project.FeiraOnline.entities.User;
+import Impacta.Project.FeiraOnline.repository.OrderItems;
+import Impacta.Project.FeiraOnline.repository.Orders;
+import Impacta.Project.FeiraOnline.repository.Products;
+import Impacta.Project.FeiraOnline.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class OrderServiceImpl implements OrderService {
+
+    private final Orders repository;
+    private final UserRepository userRepository;
+    private final Products productsRepository;
+    private final OrderItems orderItemsRepository;
+
+    @Override
+    @Transactional
+    public Order save(OrderDTO dto) {
+        Integer idUser = dto.getClient();
+        User user = userRepository
+                .findById(idUser)
+                .orElseThrow(() -> new BusinessRuleException("Client code not found."));
+
+        Order order = new Order();
+        order.setTotal(dto.getTotal());
+        order.setOrderData(LocalDate.now());
+        order.setUser(user);
+        order.setPayment(dto.getPayment());
+        order.setStatus(OrderStatus.Realized);
+
+        List<OrderItem> orderItems = convertItems(order, dto.getItems());
+        repository.save(order);
+        orderItemsRepository.saveAll(orderItems);
+        order.setItems(orderItems);
+        return order;
+    }
+
+    @Override
+    public Optional<Order> getCompleteOrder(Integer id) {
+        return repository.findByIdFetchItems(id);
+    }
+
+    @Override
+    public List<Order> getAllCompleteOrder(Integer id) {
+        return repository.findAllByIdFetchItems(id);
+    }
+
+    @Override
+    @Transactional
+    public void StatusUpdate(Integer id, OrderStatus orderStatus) {
+        repository
+                .findById(id)
+                .map( order -> {
+                    order.setStatus(orderStatus);
+                    return repository.save(order);
+                }).orElseThrow(OrderNotFoundException::new);
+    }
+
+    private List<OrderItem> convertItems(Order order, List<OrderItemDTO> items){
+        if(items.isEmpty()){
+            throw new BusinessRuleException("it's not possible to order without products.");
+        }
+
+        return items
+                .stream()
+                .map(dto ->{
+                    Integer idProduct = dto.getProduct();
+                    Product product = productsRepository
+                            .findById(idProduct)
+                            .orElseThrow(() -> new BusinessRuleException("Invalid product code ."+ idProduct
+                            ));
+
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.setQuantity(dto.getQuantity());
+                    orderItem.setOrder(order);
+                    orderItem.setProduct(product);
+                    return orderItem;
+                }).collect(Collectors.toList());
+    }
+}
