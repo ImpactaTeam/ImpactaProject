@@ -17,22 +17,20 @@ const initialState = {
 }
 
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
-    const data = await authService.auth(user);
-    if(data.erros){
-        return thunkAPI.rejectWithValue(data.erros)
+    const res = await authService.auth(user);
+    if(res.code === "ERR_BAD_RESPONSE"){
+        return thunkAPI.rejectWithValue(res.response.data.message);
     }
-
-    return data;
+    console.log(res);
+    return res.data;
 });
 
-export const register = createAsyncThunk("auth/register", async (user, thunkAPI) => {
+export const registerUser = createAsyncThunk("auth/register", async (user, thunkAPI) => {
     console.log("slice:" + user);
     const data = await authService.register(user);
     if(data.erros){
         return thunkAPI.rejectWithValue(data.erros)
     }
-
-    return data;
 });
 
 export const logout = createAsyncThunk("auth/logout", async () =>

@@ -10,48 +10,52 @@ import Orgs from 'pages/Orgs';
 import { PaymentProvider } from 'common/contexts/Payment';
 import { useAuth } from 'hooks/useAuth';
 import RegisterProvider from 'common/contexts/Register';
+import ErrorProvider from 'common/contexts/Error';
+import OrderProvider from 'common/contexts/Order';
+import Orders from 'pages/Order';
 
 export default function Routes() {
 
-    const {loading} = useAuth();
-
-    const auth = true;
-
-    console.log("loading");
+    const {auth, loading} = useAuth();
     if (loading){
         <p>Loading...</p>
     }
 
-    console.log(auth);
-
     return (
         <Router>
             <Switch>
-                <PaymentProvider>
-                    <RegisterProvider>
-                        <LoginProvider>
-                            <Route exact path="/">
-                                <SingIn />
-                            </Route>
-                                <CartProvider>
-                                    <FruitsProvider>
-                                        <Route path="/singup">
-                                            <SingUp />
-                                        </Route>
-                                        <Route path="/products">
-                                            <FairFruit/>
-                                        </Route>
-                                        <Route path = "/orgs">
-                                            <Orgs/>
-                                        </Route>
-                                        <Route path="/orders"> 
-                                            <Cart/>
-                                        </Route>                            
-                                    </FruitsProvider>
-                                </CartProvider>
-                        </LoginProvider>
-                    </RegisterProvider>
-                </PaymentProvider>
+                <OrderProvider>
+                    <PaymentProvider>
+                        <ErrorProvider>
+                            <RegisterProvider>
+                                <LoginProvider>
+                                    <Route exact path="/">
+                                        <SingIn />
+                                    </Route>
+                                        <CartProvider>
+                                            <FruitsProvider>
+                                                <Route path="/singup">
+                                                    <SingUp />
+                                                </Route>
+                                                <Route path="/product">
+                                                    <FairFruit/>
+                                                </Route>
+                                                <Route path = "/org">
+                                                    <Orgs/>
+                                                </Route>
+                                                <Route path="/cart"> 
+                                                    <Cart/>
+                                                </Route>
+                                                <Route path="/order">
+                                                    <Orders/>
+                                                </Route>                          
+                                            </FruitsProvider>
+                                        </CartProvider>
+                                </LoginProvider>
+                            </RegisterProvider>
+                        </ErrorProvider>
+                    </PaymentProvider>
+                </OrderProvider>
             </Switch>
         </Router>
     );

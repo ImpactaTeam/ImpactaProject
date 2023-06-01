@@ -1,18 +1,22 @@
 import axios from 'axios';
 
+var jwtToken = localStorage.getItem('jwtToken');
+
 var api = axios.create({
     headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': jwtToken ? `Bearer ${jwtToken}` : '',
     }
     });
 
 async function auth(endpoint, params) {
     const response = await api.post(endpoint, params);
-    console.log(api);
+    console.log("configAxios");
+    console.log(response);
     if (response.data.token){
         const jwtToken = response.data.token;
-        console.log(jwtToken);
+        localStorage.setItem('jwtToken', jwtToken);
         api = new axios.create({
             headers: {
                 'Content-Type': 'application/json',
@@ -21,8 +25,7 @@ async function auth(endpoint, params) {
             }
             });
     }
-    console.log(api);
-    return response.data;
+    return response;
 }
 
 async function post(endpoint, params) {
@@ -35,7 +38,6 @@ async function post(endpoint, params) {
 async function get(endpoint, params = {}) {
     const response = await api.get(endpoint, { 
     params });
-    console.log(api);
     return response.data;
 }
 

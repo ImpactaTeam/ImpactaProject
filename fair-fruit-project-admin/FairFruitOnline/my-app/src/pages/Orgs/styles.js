@@ -7,6 +7,7 @@ const titleGray = '#464646';
 export const Container = styled.main`
     align-items: center;
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 20px;
     min-height: 100vh;
@@ -22,20 +23,22 @@ export const Container = styled.main`
     }
 `;
 
-export const CustomCard = styled(Card)`
+export const InputContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+export const ProductsContainer = styled(Card)`
   align-items: center;
   display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
-  padding: 30px;
+  justify-content: space-between;
+  padding: 20px;
   width: 100%;
-  position: relative; /* make the container a positioned element */
   div {
-    /* align-items: center; */
+    align-items: center;
     display: flex;
     gap: 20px;
-    margin-left: 3.5%;
-    flex-wrap: wrap; /* allow the input fields to wrap to the next line */
     p {
       font-size: 22px;
       font-weight: bold;
@@ -44,23 +47,27 @@ export const CustomCard = styled(Card)`
     span {
       font-size: 16px;
     }
-    /* create a new div for the image */
-    .image-container {
-        margin-top: -135px;
-        margin-left: 70%;
-        bottom: 0;
-        transform: translateX(-50%);
-    }
-    img {
-        justify-content: space-between;
-        margin-top: 10px;
-        width: 200px;
-        height: auto;
-    }
-    Button {
-        justify-content: flex-end;
-    }
-}
+  }
+`;
+
+export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+export const Image = styled.img`
+    height: 100%;
+    justify-content: flex-start;
+`;
+
+export const CustomCard = styled(Card)`
+  align-items: center;
+  display: flex;
+  /* justify-content: space-between; */
+  padding: 30px;
+  width: 100%;
+  position: relative; /* make the container a positioned element */
 `;
 
 
@@ -93,10 +100,6 @@ export const PagamentoContainer = styled(FormControl)`
     width: 100%;
 `;
 
-export const InputContainer = styled(FormControl)`
-    margin-bottom: 30px;
-`;
-
 export const Lista = styled.section`
     display: flex;
     flex-direction: column;
@@ -107,4 +110,14 @@ export const Lista = styled.section`
         font-size: 32px;
         margin-top: 20px;
     }
+`;
+
+export const StyledForm = styled.form`
+`;
+
+export const InputForm = styled(FormControl)`
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+    width: 20em;
 `;

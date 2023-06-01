@@ -11,7 +11,7 @@ export function PaymentProvider({ children }) {
             id: 1,
         },
         {
-            name: 'Credit Card',
+            name: 'Credit',
             fees: 1.3,
             id: 2,
         },
@@ -21,7 +21,7 @@ export function PaymentProvider({ children }) {
             id: 3,
         },
         {
-            name: 'Installment plan',
+            name: 'Installment',
             fees: 1.5,
             id: 4,
         },
@@ -34,16 +34,14 @@ export function PaymentProvider({ children }) {
                 paymentType,
                 setPaymentTypes,
                 paymentTypes,
-            }}
-        >
+            }}>
             {children}
         </PaymentContext.Provider>
     );
 }
 
 export function usePayment() {
-    const { paymentType, setPaymentTypes, paymentTypes } =
-        useContext(PaymentContext);
+    const { paymentType, setPaymentTypes, paymentTypes } = useContext(PaymentContext);
 
     function changePayment(id) {
         const newType = paymentTypes.find((payment) => payment.id === id);

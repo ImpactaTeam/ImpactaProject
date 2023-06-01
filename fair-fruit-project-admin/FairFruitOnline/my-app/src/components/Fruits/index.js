@@ -1,17 +1,17 @@
 import { Container } from './styles';
 import { memo, useEffect, useState } from 'react';
-import axios from 'axios';
 import { IconButton } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import ApiService from 'service/apiService';
+import configAxios from "utils/config";
+import CircularProgress from '@mui/material/CircularProgress';
 
-function Fruits({ updateFruit }) {
+function Fruits() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getProducts = async () => {
     try {
-      const response = await ApiService.get("/api/products");
-      const data = response.data;
+      const data = await configAxios.get("/api/products");
       setProducts(data);
       console.log(data);
     } catch (error) {
@@ -21,7 +21,7 @@ function Fruits({ updateFruit }) {
 
   const deleteProduct = async (productId) => {
     try {
-      const response = await ApiService.delete(`/api/products/${productId}`);
+      const response = await configAxios.delete(`/api/products/${productId}`);
       console.log(`Product with id ${productId} has been deleted.`);
       // filter out the deleted product from the products list
       const updatedProducts = products.filter((product) => product.id !== productId);
@@ -33,13 +33,12 @@ function Fruits({ updateFruit }) {
 
   useEffect(() => {
     getProducts();
-  }, [updateFruit]);
+  }, []);
 
   return (
     <>
-      {products.length === 0 ? (
-        <p>Loading...</p>
-      ) : (
+      {/* {products.length === 0 ? ( <p>Insert a new Product!</p> ) : 
+      ( isLoading ? <CircularProgress color="success"/> :
         products.map((product) => (
           <Container className="get" key={product.id}>
             <div>
@@ -60,7 +59,7 @@ function Fruits({ updateFruit }) {
             </div>
           </Container>
         ))
-      )}
+      )} */}
     </>
   );
 }

@@ -1,10 +1,11 @@
 import { createContext, useState, useContext } from 'react';
 import apiService from 'service/apiService';
 
-export const RegisterContext = createContext();
-RegisterContext.displayName = 'Register';
+export const UserContext = createContext();
+UserContext.displayName = 'Register';
 
 export default function RegisterProvider({ children }) {
+    const [userId, setUserId] = useState('');
     const [userName, setUserName] = useState('');
     const [userDoc, setUserDoc] = useState('');
     const [userBirthDate, setUserBirthDate] = useState('');
@@ -15,8 +16,10 @@ export default function RegisterProvider({ children }) {
     const [userBalance, setUserBalance] = useState(0);
 
     return (
-        <RegisterContext.Provider
+        <UserContext.Provider
             value={{
+                userId,
+                setUserId,
                 userName,
                 setUserName,
                 userDoc,
@@ -36,7 +39,7 @@ export default function RegisterProvider({ children }) {
             }}
         >
             {children}
-        </RegisterContext.Provider>
+        </UserContext.Provider>
     );
 }
 

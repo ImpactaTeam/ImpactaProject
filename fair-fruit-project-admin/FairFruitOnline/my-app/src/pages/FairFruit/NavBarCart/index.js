@@ -14,7 +14,7 @@ export default function NavBarCart() {
             </LogoContainer>
                 <ButtonContainer>
                     <IconButton
-                        onClick={() => history.push('/orders')}
+                        onClick={() => history.push('/cart')}
                         disabled={quantityCart === 0}
                     >
                         <Badge overlap="rectangular" badgeContent={quantityCart} color="primary">

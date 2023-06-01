@@ -2,33 +2,47 @@ import styled from 'styled-components';
 import FormControl from '@material-ui/core/FormControl';
 import { Button } from '@material-ui/core';
 
-export const Image = styled.img`
-    max-width: 67.375em;
-    max-height: 67.375em;
+export const Container = styled.main`
+  display: flex;
+  align-items: center;
+  height: 100vh;
 `;
 
 export const ImageContainer = styled.div`
-  flex: 1;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 50em; /* set width to 50% */
-  margin-bottom: 20px; /* add some margin at the bottom */
+  /* overflow: hidden; */
 
-  @media (min-width: 768px) {
-    height: 60em; /* set height to 60em */
-    width: 50em; /* set width to 50em */
-  }
+  @media (max-width: 2015px) {
+        width: 900px;
+    }
+    @media (max-width: 1815px) {
+        width: 800px;
+    }
+    @media (max-width: 1700px) {
+        width: 700px;
+    }
+    @media (max-width: 1600px) {
+        width: 600px;
+    }
+    @media (max-width: 1400px) {
+        width: 500px;
+    }
+
+    @media (max-width: 1400px) {
+        width: 400px;
+    }
 `;
 
-export const SignInContainer = styled.div`
-  flex: 1;
+export const FormLoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  max-width: 100em; /* add max-width property */
-  margin-left: -400px;
+  width: 100%;
+  @media (max-width: 1300px) {
+    width: 300px;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -37,8 +51,6 @@ export const InputContainer = styled.div`
   align-items: center;
   margin-top: -10px;
   margin-bottom: 30px;
-  width: 50em; /* set width to 100% */
-
   @media (min-width: 768px) {
     margin-top: -10px;
     margin-bottom: 30px;
@@ -46,37 +58,27 @@ export const InputContainer = styled.div`
   }
 `;
 
-export const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 50px; /* add some padding */
-  height: auto; /* set height to auto */
-  
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: center;
-    padding: 0px; /* remove padding */
-    margin: 0px 0px; /* add some margin */
-    height: 60em; /* set height to 60em */
-  }
+export const Image = styled.img`
+    height: 100%;
+    justify-content: flex-start;
 `;
+
 
 export const Title = styled.h2`
   display: flex;
   flex-direction: column;
-  margin-bottom: 200px; /* reduce margin */
-  margin-top: 150px; /* remove margin */
+  margin-bottom: 200px;
+  margin-top: 150px;
   
   @media (min-width: 768px) {
-    margin-bottom: 50px; /* add some margin */
+    margin-bottom: 50px;
   }
 `;
 
 export const InputForm = styled(FormControl)`
+    display: flex;
     margin-bottom: 30px;
-    width: 50em; /* set width to 100% */
+    width: 50em;
 `;
 
 export const CustomIcon = styled.div`
@@ -87,7 +89,24 @@ export const CustomIcon = styled.div`
     }
 `;
 
+export const Messages = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    line-height: 25px;
+`
+export const ErrorContainer = styled.div`
+    display: flex;
+    justify-content: center;
+  `
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 export const StyledButton = styled(Button)`
+  display: flex;
   margin-top: 20px;
 `;
 

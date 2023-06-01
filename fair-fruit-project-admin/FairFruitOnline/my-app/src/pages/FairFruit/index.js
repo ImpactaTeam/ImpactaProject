@@ -1,25 +1,33 @@
 import { Container, Header, List } from './styles';
 import { useContext } from 'react';
-import { LoginContext } from 'common/contexts/Login';
 import NavBarCart from './NavBarCart';
 import NavBarFruits from './NavBarOrgs';
 import Product from 'components/Product';
-import { useState } from 'react';
-import NavBarClient from './NavBarClient';
+import { useEffect } from 'react';
+import NavBarOrder from './NavBarOrder';
+import { UserContext } from 'common/contexts/Register';
+import { useFruitsContext } from 'common/contexts/Fruits';
 
+function FairFruit() {
+    const {fruit, products} = useFruitsContext();
+    const {userName, userBalance} = useContext(UserContext);
+    const getProducts = async () => {
+        await products();
+    }
 
-function FairFruit({name, id}) {
-    const { balance = 0 } = useContext(LoginContext);
-    const [product] = useState([]);
+    useEffect(() => {
+        getProducts();
+    }, [])
+
     return (
         <Container>
             <NavBarFruits />
             <NavBarCart />
-            <NavBarClient />
+            <NavBarOrder />
             <Header>
                 <div>
-                    <h2> Hi {name}!</h2>
-                    <h3> Balance: ${balance.toFixed(2)}</h3>
+                    <h2> Hi {userName}!</h2>
+                    <h3> Balance: ${userBalance.toFixed(2)}</h3>
                 </div>
                 <p>Find the best products!</p>
                 <div>
@@ -27,11 +35,12 @@ function FairFruit({name, id}) {
                 </div>
             </Header>
                 <List>
-                    <Product
-                    {...product}
-                    key={product.id}
-                    />
+                    {fruit.map(product => (
+                        <Product
+                            {...product}
+                            key={product.id}/>))}
                 </List>
+                
         </Container>
     );
 }

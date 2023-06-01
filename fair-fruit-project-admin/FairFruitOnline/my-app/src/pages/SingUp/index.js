@@ -7,68 +7,41 @@ import { Input, InputLabel, InputAdornment, FormControl,
     Select, MenuItem } from '@material-ui/core';
 import {TextField} from '@material-ui/core';
 import axios from 'axios';
-import InputMasked from '../../components/InputMasked/index.js';
 import LockIcon from '@mui/icons-material/Lock';
 import ApiService from '../../service/apiService.js';
-import { register, resetRegister } from 'slices/slice';
+import { registerUser, resetRegister } from 'slices/slice';
 import { useSelector, useDispatch } from 'react-redux';
-import { RegisterContext } from 'common/contexts/Register';
+import { UserContext } from 'common/contexts/Register';
+import { useForm } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 
 
 function SingUp() {
     const {userType, setUserType, userName, setUserName, userDoc,
          setUserDoc, userBirthDate, setUserBirthDate, userBalance,
          setUserBalance, userEmail, setUserEmail, userLogin,
-         setUserLogin, userPassword, setUserPassword} = useContext(RegisterContext);
+         setUserLogin, userPassword, setUserPassword} = useContext(UserContext);
     const dispath = useDispatch();
-    
-    const handleNameChange = (event) => {
-        setUserName(event.target.value);
-    };
+    const {register, handleSubmit, formState: {errors}, clearErrors} = useForm();
+    const {loading} = useSelector((state => state.auth));
 
-    const handleDocChange = (event) => {
-        setUserDoc(event.target.value);
-    };
-    
-    const handleBirthDateChange = (event) => {
-        setUserBirthDate(event.target.value);
-    };
+    const history = useHistory();
 
-    const handleUserEmailChange = (event) => {
-        setUserEmail(event.target.value);
-    };
 
-    const handleUserLoginChange = (event) => {
-        setUserLogin(event.target.value);
-    };
-
-    const handleUserPasswordChange = (event) => {
-        setUserPassword(event.target.value);
-    };
-
-    const handleBalanceChange = (event) => {
-        setUserBalance(event.target.value);
-    };
-
-    const handleUserTypeChange = (event) => {
-        setUserType(event.target.value);
-    };
-
-    const handleSubmit = async (event) => {
-        console.log("chamando handdlesubmit");
-        event.preventDefault();
+    const onSubmit = async (data) => {
         const newUser = {
-            name: userName,
-            cpf: userDoc,
-            birthDate: userBirthDate,
-            email: userEmail,
-            login: userLogin,
-            password: userPassword,
-            balance: userBalance,
-            admin: userType,
+            name: data.name,
+            cpf: data.cpf,
+            birthDate: data.birthDate,
+            email: data.email,
+            login: data.login,
+            password: data.password,
+            balance: data.balance,
+            admin: data.type,
         };
+        console.log(newUser);
         try {
-            dispath(register(newUser));
+            dispath(registerUser(newUser));
         } catch (error) {
             console.log(error);
         }
@@ -84,116 +57,136 @@ function SingUp() {
                 <LockIcon />
             </CustomIcon>
             <Title>Sign Up</Title>
-            <InputContainer>
-            <InputForm>
-                <TextField
-                id="outlined-basic"
-                label="Name *"
-                variant="outlined"
-                value={userName}
-                type="text"
-                onChange={handleNameChange} />
-            </InputForm>
-            <InputForm>
-                <InputMasked
-                    mask="999.999.999-99"
-                    id="outlined-basic"
-                    label="CPF *"
+            {!loading ? 
+                <StyledForm onSubmit={handleSubmit(onSubmit)}>
+                <InputContainer>
+                <InputForm>
+                    <TextField
+                    id="outlined-name"
+                    name="name"
+                    label="Name *"
                     variant="outlined"
-                    value={userDoc}
                     type="text"
-                    onChange={handleDocChange}
-                />
-            </InputForm>
-            </InputContainer>
-            <InputContainer>
-            <InputForm>
-                <InputMasked
-                    mask="99-99-9999"
-                    id="outlined-basic"
-                    label="Birth Date (dd-MM-yyyy)*"
-                    variant="outlined"
-                    value={userBirthDate}
-                    type="text"
-                    onChange={handleBirthDateChange} />
-            </InputForm>
-            <InputForm fullWidth>
-                <InputLabel id="demo-simple-select-label"> Type </InputLabel>
-                <Select
-                    labelId="demo-simple-select"
-                    id="demo-simple-select"
-                    defaultValue={false}
-                    label="Type"
-                    value={userType}
-                    onChange={handleUserTypeChange}
-                >
-                    <MenuItem value={false}>User</MenuItem>
-                    <MenuItem value={true}>Admin</MenuItem>
-                </Select>
-            </InputForm>
-            </InputContainer>
-            <InputContainer>
-            <ExtraInputForm>
-                <TextField
-                    id="outlined-basic"
-                    label="Email *"
-                    variant="outlined"
-                    value={userEmail}
-                    type="text"
-                    onChange={handleUserEmailChange} />
-            </ExtraInputForm>
-            </InputContainer>
-            <InputContainer>
-            <InputForm>
-                <TextField
-                        id="outlined-basic"
+                    {...register("name", { required: "Name is required." })}
+                    error={Boolean(errors.name)}
+                    helperText={errors.name?.message}/>
+                </InputForm>
+                <InputForm>
+                    <InputMask
+                        mask="999.999.999-99" maskChar=""
+                        id="outlined-cpf"
+                        variant="outlined"
+                        type="text"
+                        {...register("cpf", { required: "A valid Cpf is required." })}
+                        error={Boolean(errors.cpf)}
+                        helperText={errors.cpf?.message}>
+                            {(props) => <TextField 
+                                    variant="outlined"
+                                    name="cpf"
+                                    label="CPF *"
+                                    error={props.error}
+                                    helperText={props.helperText}/>}
+                    </InputMask>
+                </InputForm>
+                </InputContainer>
+                <InputContainer>
+                <InputForm>
+                    <InputMask
+                        mask="99-99-9999" maskChar=""
+                        id="outlined-birthDate"
+                        variant="outlined"
+                        type="text"
+                        {...register("birthDate", { required: "Birth Date is required." })}
+                        error={Boolean(errors.birthDate)}
+                        helperText={errors.birthDate?.message}>
+                            {(props) => <TextField 
+                                    variant="outlined"
+                                    name="birthDate"
+                                    label="Birth Date (dd-MM-yyyy)*"
+                                    error={props.error}
+                                    helperText={props.helperText}/>}
+                    </InputMask>
+                </InputForm>
+                <InputForm fullWidth>
+                    <InputLabel id="demo-simple-select-label"> Type </InputLabel>
+                    <Select
+                        id="demo-simple-select"
+                        name="type"
+                        labelId="demo-simple-select"
+                        defaultValue={false}
+                        label="Type"
+                        {...register("type")}>
+                        <MenuItem value={false}>User</MenuItem>
+                        <MenuItem value={true}>Admin</MenuItem>
+                    </Select>
+                </InputForm>
+                </InputContainer>
+                <InputContainer>
+                <ExtraInputForm>
+                    <TextField
+                        id="outlined-email"
+                        name="email"
+                        label="E-mail *"
+                        variant="outlined"
+                        type="text"
+                        {...register("email", { required: "E-mail is required." })}
+                        error={Boolean(errors.email)}
+                        helperText={errors.email?.message}/>
+                </ExtraInputForm>
+                </InputContainer>
+                <InputContainer>
+                <InputForm>
+                    <TextField
+                        id="outlined-login"
+                        name="login"
                         label="Login *"
                         variant="outlined"
-                        value={userLogin}
                         type="text"
-                        onChange={handleUserLoginChange} />
-            </InputForm>
-            <InputForm>
-                <TextField
-                    id="outlined-basic"
-                    label="Password *"
-                    variant="outlined"
-                    value={userPassword}
-                    type="password"
-                    onChange={handleUserPasswordChange} />
-            </InputForm>
-            </InputContainer>
-            <InputContainer>
-            <ExtraInputForm>
-                <TextField
-                        id="outlined-basic"
+                        {...register("login", { required: "Login is required." })}
+                        error={Boolean(errors.login)}
+                        helperText={errors.login?.message}/>
+                </InputForm>
+                <InputForm>
+                    <TextField
+                        id="outlined-password"
+                        name="password"
+                        label="Password *"
+                        variant="outlined"
+                        type="password"
+                        {...register("password", { required: "Password is required." })}
+                        error={Boolean(errors.password)}
+                        helperText={errors.password?.message}/>
+                </InputForm>
+                </InputContainer>
+                <InputContainer>
+                <ExtraInputForm>
+                    <TextField
+                        id="outlined-balance"
+                        name="balance"
                         InputProps={{
                             startAdornment: (
-                              <InputAdornment position="start">
+                            <InputAdornment position="start">
                                 $$
-                              </InputAdornment>
+                            </InputAdornment>
                             ),
-                          }}
+                        }}
                         label="Balance *"
                         variant="outlined"
-                        value={userBalance}
-                        type="number"
-                        onChange={handleBalanceChange} />
-            </ExtraInputForm>
-            
-            </InputContainer>
-            <StyledForm onSubmit={handleSubmit}>
+                        defaultValue={0}
+                        type="decimal"
+                        {...register("balance")}/>
+                </ExtraInputForm>
+                </InputContainer>
                 <Button
                     type="submit"
                     variant="contained"
                     color="primary"
-                    disabled={userName.length < 4}
                     // onClick={() => history.push('/')}
                 >
                     Sign Up
                 </Button>
-                <p><a href="http://localhost:3000/">Already have an account? Sign in</a></p>
-            </StyledForm>
+            </StyledForm> : "...Loading"}
+            <p><a href="http://localhost:3000/">Already have an account? Sign in</a></p>
         </Container>
     );
 }

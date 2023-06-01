@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { usePayment } from './Payment';
-import { LoginContext } from './Login';
+import { UserContext } from 'common/contexts/Register';
+import configAxios from 'utils/config';
 
 const CartContext = createContext();
 CartContext.displayName = 'Cart';
@@ -35,7 +36,7 @@ export function useCartContext() {
         setTotalValue,
     } = useContext(CartContext);
 
-    const { balance, setBalance } = useContext(LoginContext);
+    const {userBalance, setUserBalance} = useContext(UserContext);
 
     const { paymentType } = usePayment();
 
@@ -44,7 +45,8 @@ export function useCartContext() {
         return item;
     });
 
-    function addProduct(newProduct) {
+    function addProduct(newProduct = {}) {
+        console.log(newProduct);
         const hasProduct = cart.some(item => item.id === newProduct.id);
         let newCart = [...cart];
         if (!hasProduct) {
@@ -53,6 +55,7 @@ export function useCartContext() {
             return setCart(newCart);
         }
         newCart = changeQuantity(newProduct.id, 1);
+        console.log(newCart);
         setCart(newCart);
     }
 
@@ -70,27 +73,34 @@ export function useCartContext() {
 
     function buy() {
         setCart([]);
-        setBalance(balance - totalValue);
+        setUserBalance(userBalance - totalValue);
+    }
+
+    async function order(data){
+        try {
+            await configAxios.post("/api/orders", data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
-        let { newQuantity, newTotal } = cart.reduce(
-            (count, newItem) => ({
-                newQuantity: count.newQuantity + newItem.quantity,
-                newTotal: count.newTotal + newItem.valor * newItem.quantity,
-            }),
-            { newQuantity: 0, newTotal: 0 }
-        );
+        let { newQuantity, newTotal } = cart.reduce((count, newItem) => ({
+            newQuantity: count.newQuantity + newItem.quantity,
+            newTotal: count.newTotal + (newItem.price * newItem.quantity)
+            }), { newQuantity: 0, newTotal: 0 });
         setQuantityCart(newQuantity);
         setTotalValue(newTotal * paymentType.fees);
     }, [cart, paymentType, setQuantityCart, setTotalValue]);
 
     return {
         cart,
+        setCart,
         addProduct,
         removeProduct,
         quantityCart,
         totalValue,
         buy,
+        order
     };
 }
